@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - GEC eNASCAR League</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background: url('https://source.unsplash.com/1600x900/?nascar,racing') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+        }
+        .navbar {
+            background: linear-gradient(90deg, #ff0000, #ffffff, #0000ff);
+        }
+        .navbar-brand, .nav-link {
+            color: white !important;
+            font-weight: bold;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 50px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">GEC eNASCAR League</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="application.html">Driver Application</a></li>
+                    <li class="nav-item"><a class="nav-link" href="handbook.html">Race Handbook</a></li>
+                    <li class="nav-item"><a class="nav-link" href="roster.html">League Roster</a></li>
+                    <li class="nav-item"><a class="nav-link" href="admin.html">Admin Panel</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2 class="text-center">Admin Panel</h2>
+        <p id="roleMessage" class="text-center text-danger"></p>
+
+        <div id="modSection" class="hidden">
+            <h3>Pending Applications</h3>
+            <ul id="applicationsList" class="list-group">
+                <li class="list-group-item d-flex justify-content-between">
+                    Applicant 1 <button class="btn btn-success btn-sm">Accept</button> <button class="btn btn-danger btn-sm">Deny</button>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    Applicant 2 <button class="btn btn-success btn-sm">Accept</button> <button class="btn btn-danger btn-sm">Deny</button>
+                </li>
+            </ul>
+        </div>
+
+        <div id="adminSection" class="hidden">
+            <h3>Manage Users</h3>
+            <ul id="usersList" class="list-group">
+                <li class="list-group-item d-flex justify-content-between">
+                    User1 - Member <button class="btn btn-warning btn-sm">Edit</button> <button class="btn btn-danger btn-sm">Delete</button>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    User2 - Mod <button class="btn btn-warning btn-sm">Edit</button> <button class="btn btn-danger btn-sm">Delete</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Simulated role: 'user', 'mod', or 'admin'
+        let userRole = 'mod'; // Change this to test different access levels
+
+        document.addEventListener("DOMContentLoaded", function() {
+            let roleMessage = document.getElementById('roleMessage');
+            let modSection = document.getElementById('modSection');
+            let adminSection = document.getElementById('adminSection');
+
+            if (userRole === 'user') {
+                roleMessage.innerText = 'Access Denied: You do not have permission to view this page.';
+            } else if (userRole === 'mod') {
+                modSection.classList.remove('hidden');
+                roleMessage.innerText = 'Moderator Access: You can accept or deny applications.';
+            } else if (userRole === 'admin') {
+                modSection.classList.remove('hidden');
+                adminSection.classList.remove('hidden');
+                roleMessage.innerText = 'Admin Access: You have full control over users and applications.';
+            }
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
