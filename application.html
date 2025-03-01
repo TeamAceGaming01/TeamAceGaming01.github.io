@@ -81,16 +81,31 @@
         let takenNumbers = [12, 24, 48]; // Example of already taken numbers
 
         document.getElementById('applicationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
             let carNumber = parseInt(document.getElementById('carNumber').value);
             let warning = document.getElementById('numberWarning');
             
             if (takenNumbers.includes(carNumber)) {
                 warning.innerText = 'This car number is already taken. Please choose another.';
-                event.preventDefault();
             } else {
                 warning.innerText = '';
-                alert('Application submitted successfully!');
-                takenNumbers.push(carNumber); // Simulating number reservation
+                let applicationData = {
+                    name: document.getElementById('iracingName').value,
+                    discord: document.getElementById('discordUsername').value,
+                    iracingID: document.getElementById('iracingID').value,
+                    carNumber: carNumber,
+                    series: document.getElementById('series').value
+                };
+                
+                fetch('applications.json', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(applicationData)
+                }).then(response => response.json())
+                  .then(data => {
+                      alert('Application submitted successfully!');
+                      takenNumbers.push(carNumber);
+                  }).catch(error => console.error('Error:', error));
             }
         });
     </script>
