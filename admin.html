@@ -41,35 +41,58 @@
     document.addEventListener("DOMContentLoaded", () => {
         const applicationsTable = document.getElementById("applications-table");
         const usersTable = document.getElementById("users-table");
+        const storedApplications = JSON.parse(localStorage.getItem("applications")) || [];
         
-        let applications = [
-            { name: "John Doe", series: "Cup Car Series", carNumber: 19 },
-            { name: "Jane Smith", series: "Xfinity Series", carNumber: 24 }
-        ];
-        
-        let users = [
+        let users = JSON.parse(localStorage.getItem("users")) || [
             { username: "admin", role: "Administrator" },
             { username: "racer1", role: "Driver" }
         ];
         
-        applications.forEach(app => {
-            let row = applicationsTable.insertRow();
-            row.innerHTML = `<td>${app.name}</td><td>${app.series}</td><td>${app.carNumber}</td><td><button onclick="approveApplication('${app.name}')">Approve</button></td>`;
-        });
+        function renderApplications() {
+            applicationsTable.innerHTML = `<tr>
+                <th>Name</th>
+                <th>Series</th>
+                <th>Car Number</th>
+                <th>Action</th>
+            </tr>`;
+            storedApplications.forEach((app, index) => {
+                let row = applicationsTable.insertRow();
+                row.innerHTML = `<td>${app.name}</td><td>${app.series}</td><td>${app.carNumber}</td>
+                <td><button onclick="approveApplication(${index})">Approve</button></td>`;
+            });
+        }
         
-        users.forEach(user => {
-            let row = usersTable.insertRow();
-            row.innerHTML = `<td>${user.username}</td><td>${user.role}</td><td><button onclick="removeUser('${user.username}')">Remove</button></td>`;
-        });
+        function renderUsers() {
+            usersTable.innerHTML = `<tr>
+                <th>Username</th>
+                <th>Role</th>
+                <th>Action</th>
+            </tr>`;
+            users.forEach((user, index) => {
+                let row = usersTable.insertRow();
+                row.innerHTML = `<td>${user.username}</td><td>${user.role}</td>
+                <td><button onclick="removeUser(${index})">Remove</button></td>`;
+            });
+        }
+        
+        window.approveApplication = (index) => {
+            let approvedApp = storedApplications.splice(index, 1)[0];
+            users.push({ username: approvedApp.name, role: "Driver" });
+            localStorage.setItem("applications", JSON.stringify(storedApplications));
+            localStorage.setItem("users", JSON.stringify(users));
+            renderApplications();
+            renderUsers();
+        };
+        
+        window.removeUser = (index) => {
+            users.splice(index, 1);
+            localStorage.setItem("users", JSON.stringify(users));
+            renderUsers();
+        };
+        
+        renderApplications();
+        renderUsers();
     });
-    
-    function approveApplication(name) {
-        alert(`Application approved for ${name}`);
-    }
-    
-    function removeUser(username) {
-        alert(`User ${username} has been removed`);
-    }
 </script>
 
 <style>
