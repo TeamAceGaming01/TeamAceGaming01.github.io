@@ -54,14 +54,7 @@
 
         <div id="modSection" class="hidden">
             <h3>Pending Applications</h3>
-            <ul id="applicationsList" class="list-group">
-                <li class="list-group-item d-flex justify-content-between">
-                    Applicant 1 <button class="btn btn-success btn-sm">Accept</button> <button class="btn btn-danger btn-sm">Deny</button>
-                </li>
-                <li class="list-group-item d-flex justify-content-between">
-                    Applicant 2 <button class="btn btn-success btn-sm">Accept</button> <button class="btn btn-danger btn-sm">Deny</button>
-                </li>
-            </ul>
+            <ul id="applicationsList" class="list-group"></ul>
         </div>
 
         <div id="adminSection" class="hidden">
@@ -78,23 +71,37 @@
     </div>
 
     <script>
-        // Simulated role: 'user', 'mod', or 'admin'
-        let userRole = 'mod'; // Change this to test different access levels
+        let userRole = 'mod'; // Change this to 'admin' to test full access
 
         document.addEventListener("DOMContentLoaded", function() {
             let roleMessage = document.getElementById('roleMessage');
             let modSection = document.getElementById('modSection');
             let adminSection = document.getElementById('adminSection');
+            let applicationsList = document.getElementById('applicationsList');
 
             if (userRole === 'user') {
                 roleMessage.innerText = 'Access Denied: You do not have permission to view this page.';
-            } else if (userRole === 'mod') {
+            } else {
+                fetch('applications.json') // Fetch pending applications
+                    .then(response => response.json())
+                    .then(data => {
+                        applicationsList.innerHTML = "";
+                        data.forEach(application => {
+                            let listItem = document.createElement('li');
+                            listItem.classList.add('list-group-item', 'd-flex', 'justify-content-between');
+                            listItem.innerHTML = `${application.name} - ${application.series} 
+                                <button class="btn btn-success btn-sm">Accept</button> 
+                                <button class="btn btn-danger btn-sm">Deny</button>`;
+                            applicationsList.appendChild(listItem);
+                        });
+                    });
+                
                 modSection.classList.remove('hidden');
-                roleMessage.innerText = 'Moderator Access: You can accept or deny applications.';
-            } else if (userRole === 'admin') {
-                modSection.classList.remove('hidden');
+                roleMessage.innerText = userRole === 'mod' ? 'Moderator Access: You can accept or deny applications.' : 'Admin Access: You have full control over users and applications.';
+            }
+            
+            if (userRole === 'admin') {
                 adminSection.classList.remove('hidden');
-                roleMessage.innerText = 'Admin Access: You have full control over users and applications.';
             }
         });
     </script>
