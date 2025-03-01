@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Admin Panel</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Review Applications</h2>
+            <table id="applications-table">
+                <tr>
+                    <th>Name</th>
+                    <th>Series</th>
+                    <th>Car Number</th>
+                    <th>Action</th>
+                </tr>
+            </table>
+        </section>
+        <section>
+            <h2>Manage Users</h2>
+            <table id="users-table">
+                <tr>
+                    <th>Username</th>
+                    <th>Role</th>
+                    <th>Action</th>
+                </tr>
+            </table>
+        </section>
+    </main>
+</body>
+</html>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const applicationsTable = document.getElementById("applications-table");
+        const usersTable = document.getElementById("users-table");
+        
+        let applications = [
+            { name: "John Doe", series: "Cup Car Series", carNumber: 19 },
+            { name: "Jane Smith", series: "Xfinity Series", carNumber: 24 }
+        ];
+        
+        let users = [
+            { username: "admin", role: "Administrator" },
+            { username: "racer1", role: "Driver" }
+        ];
+        
+        applications.forEach(app => {
+            let row = applicationsTable.insertRow();
+            row.innerHTML = `<td>${app.name}</td><td>${app.series}</td><td>${app.carNumber}</td><td><button onclick="approveApplication('${app.name}')">Approve</button></td>`;
+        });
+        
+        users.forEach(user => {
+            let row = usersTable.insertRow();
+            row.innerHTML = `<td>${user.username}</td><td>${user.role}</td><td><button onclick="removeUser('${user.username}')">Remove</button></td>`;
+        });
+    });
+    
+    function approveApplication(name) {
+        alert(`Application approved for ${name}`);
+    }
+    
+    function removeUser(username) {
+        alert(`User ${username} has been removed`);
+    }
+</script>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #1e1e1e;
+        color: white;
+        text-align: center;
+    }
+
+    .nascar-banner img {
+        width: 200px;
+        margin-top: 10px;
+    }
+
+    nav ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    nav ul li {
+        display: inline;
+        margin: 0 15px;
+    }
+    nav ul li a {
+        color: yellow;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    table {
+        width: 80%;
+        margin: 20px auto;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        border: 1px solid white;
+        padding: 10px;
+    }
+
+    button {
+        padding: 5px 10px;
+        background: yellow;
+        border: none;
+        cursor: pointer;
+    }
+</style>
