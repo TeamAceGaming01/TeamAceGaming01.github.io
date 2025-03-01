@@ -4,33 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GEC eNASCAR League</title>
-    <link rel="stylesheet" href="styles.css">
-    <script defer src="script.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background: url('https://source.unsplash.com/1600x900/?nascar,racing') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+        }
+        .navbar {
+            background: linear-gradient(90deg, #ff0000, #ffffff, #0000ff);
+        }
+        .navbar-brand, .nav-link {
+            color: white !important;
+            font-weight: bold;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 50px;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <div class="nascar-banner">
-            <img src="nascar-logo.png" alt="NASCAR Logo">
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">GEC eNASCAR League</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="application.html">Driver Application</a></li>
+                    <li class="nav-item"><a class="nav-link" href="handbook.html">Race Handbook</a></li>
+                    <li class="nav-item"><a class="nav-link" href="roster.html">League Roster</a></li>
+                    <li class="nav-item"><a class="nav-link" href="admin.html">Admin Panel</a></li>
+                </ul>
+            </div>
         </div>
-        <h1>iRacing League Community</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="application.html">Driver Application</a></li>
-                <li><a href="rules.html">Rules & Regulations</a></li>
-                <li><a href="roster.html">League Roster</a></li>
-                <li><a href="admin.html">Admin Panel</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <section id="welcome">
-            <h2>Welcome to GEC eNASCAR League</h2>
-            <p>Join one of the best iRacing Leagues/Communities and compete in our Truck/Xfinity/Cup Series.</p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2025 iRacing League. All rights reserved.</p>
-    </footer>
+    </nav>
+
+    <div class="container text-center">
+        <h1>Welcome to the GEC eNASCAR League</h1>
+        <p>The ultimate eNASCAR racing experience! Join us for thrilling competition and high-speed excitement.</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
